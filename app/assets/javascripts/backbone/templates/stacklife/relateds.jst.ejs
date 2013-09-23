@@ -1,0 +1,23 @@
+<div class="module yellow">
+  <h6>Related Subjects</h6>
+  <% if (model.get) { %>
+    <% var items = model.get('docs') %>
+    <% if (items && items.length) { %>
+      <div class="dpla-relateds">
+        <% _.each(items, function(item) { %>
+          <div class="dpla-related-item">
+            <a href="http://dp.la/item/<%= item.id %>" target="_blank" class="view-dpla-item">
+              <img src="<%= item.object %>" alt="<%= item.sourceResource.title %>">
+              <span><%= item.sourceResource.title %></span>
+            </a>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <p>No related DPLA items.</p>
+    <% } %>
+  <% } else { %>
+    <p><img src="/assets/stacklife-loading.gif" alt="Loading..." /></p>
+  <% } %>
+</div>
+

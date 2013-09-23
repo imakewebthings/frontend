@@ -1,0 +1,30 @@
+<div class="book-preview">
+  <img src="http://dp.la/assets/icon-text-b2bb9d2fd006d8e87b24613a4d4f362e.gif" class="cover_small" alt="">
+  <h2><a href="#TODO-ITEMPAGE"><%= model.get('title') %></a></h2>
+  <% if (model.get('creator')) { %>
+    <h3><%= model.get('creator') %></h3>
+  <% } %>
+
+  <p class="book-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+  <% var subjects = model.get('subjects') %>
+  <% if (subjects && subjects.length) { %>
+    <div class="book-subjects">
+      <strong>Subjects:</strong>
+      <ul class="individual-subjects">
+        <% _.each(subjects, function(subject, index) { %>
+          <li><a href="#" class="single-subject-link" data-subject="<%= subject %>"><%= subject %></a></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+
+  <ul class="book-preview-actions">
+    <li><a href="#TODO-VIEWOBJECT">View Object</a></li>
+    <% if (model.get('viewer_url')) { %>
+      <li><a href="<%= model.get('viewer_url') %>">Read</a></li>
+    <% } %>
+  </ul>
+
+  <div class="book-relateds"></div>
+</div>

@@ -36,6 +36,11 @@ en:
     show:
       title: Map
       title_with_query: '“%{query}” - %{title}'
+      map:
+  stacklife:
+    show:
+      title: Stacklife
+      title_with_query: '“%{query}” - %{title}'
   saved_searches:
     index:
       title: Saved Searches

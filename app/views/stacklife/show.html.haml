@@ -1,0 +1,16 @@
+- page_title! t('.title_with_query', title: t('.title'), query: params[:q]) if params[:q].present?
+
+.layoutTwo.stacklife.search-page
+  = render 'shared/search_panel'
+  = render 'shared/aside_toggle'
+
+  %h1 Stacklife
+  = render 'shared/results/search_results', query: params[:q], search: @search
+  - if @search.count > 0
+    .slidePopOut#content{role: "main"}
+      .waypoint-wrapper
+        %article.stacklife-container
+          .stack-wrapper
+            = image_tag 'stacklife-loading.gif', class: 'stacklife-loading'
+          .preview-wrapper
+    = render partial: 'shared/sidebar'

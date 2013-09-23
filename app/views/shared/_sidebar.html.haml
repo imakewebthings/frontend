@@ -1,4 +1,4 @@
-- aside_collapsed = params[:controller] != 'search'
+- aside_collapsed = %w(timeline map).include? params[:controller]
 
 %aside{class: aside_collapsed ? 'moveOut' : nil}
   - if params[:controller] == 'search'

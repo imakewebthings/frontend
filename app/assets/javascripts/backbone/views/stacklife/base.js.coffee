@@ -1,0 +1,31 @@
+DPLA.Views.Stacklife = {}
+
+class DPLA.Views.Stacklife.Base extends Backbone.View
+  initialize: (options) ->
+    super options
+    @subviews = []
+    @template = @template ? options.template
+    @render()
+    console.log
+
+  render: ->
+    data =
+      model: @model ? {}
+      collection: @collection ? {}
+      helpers: @helpers
+    @$el.html @template(data)
+
+  destroy: ->
+    _.invoke @subviews, 'destroy'
+    @undelegateEvents()
+    @remove()
+
+  clear: ->
+    _.invoke @subviews, 'destroy'
+    @undelegateEvents()
+    @$el.empty()
+
+  redraw: ->
+    @clear()
+    @render()
+    @delegateEvents()
