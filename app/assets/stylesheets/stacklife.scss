@@ -66,7 +66,7 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
       overflow:visible;
     }
 
-    @media all and (max-width: 1300px) {
+    @media all and (min-width:681px) and (max-width: 1300px) {
       left:0;
       padding:0 2.6455026%;
     }
