@@ -16,7 +16,7 @@ Backbone.on 'stacklife:init', ->
 
     book.fetch
       success: (model, response, options) ->
-        currentPreview.clear() if currentPreview
+        currentPreview.clear() if currentPreview && currentPreview.model
         currentPreview = new DPLA.Views.Stacklife.BookPreview { model: model }
 
       error: (model, xhr, options) ->

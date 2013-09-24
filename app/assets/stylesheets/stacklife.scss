@@ -56,13 +56,15 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
 
 .waypoint-wrapper {
   &.stuck {
-    @include border-box();
-    position:fixed;
-    top:-8px;
-    width:100%;
-    max-width:1300px;
-    height:0;
-    overflow:visible;
+    @media all and (min-width:680px) {
+      @include border-box();
+      position:fixed;
+      top:-8px;
+      width:100%;
+      max-width:1300px;
+      height:0;
+      overflow:visible;
+    }
 
     @media all and (max-width: 1300px) {
       left:0;
@@ -71,17 +73,19 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   }
 
   &.unstuck {
-    position:absolute;
-    bottom:0;
-    right:0;
-    left:0;
-    height:0;
-    overflow:visible;
-
-    .stacklife-container {
+    @media all and (min-width:680px) {
       position:absolute;
-      right:0;
       bottom:0;
+      right:0;
+      left:0;
+      height:0;
+      overflow:visible;
+
+      .stacklife-container {
+        position:absolute;
+        right:0;
+        bottom:0;
+      }
     }
   }
 }

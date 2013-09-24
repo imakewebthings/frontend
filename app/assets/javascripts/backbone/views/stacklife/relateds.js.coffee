@@ -8,7 +8,11 @@ Backbone.on 'stacklife:init', ->
       @model = new Backbone.Model
       @model.on 'change', _.bind(@redraw, this)
       @loadModel()
-      jQuery(window).on 'resize', _.debounce(_.bind(@handleResize, @), 200)
+      $(window).on 'resize.relateds', _.debounce(_.bind(@handleResize, @), 200)
+
+    undelegateEvents: ->
+      $(window).off 'resize.relateds'
+      super
 
     render: ->
       super
@@ -41,6 +45,7 @@ Backbone.on 'stacklife:init', ->
       @$('.dpla-relateds').masonry()
 
     resizeToWindow: ->
+      return unless @$el.parent().length
       $module = @$el.children('.module')
       moduleTop = $module.offset().top
       previewTop = @$el.closest('.preview-wrapper').offset().top
