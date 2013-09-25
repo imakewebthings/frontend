@@ -10,6 +10,7 @@ Backbone.on 'stacklife:init', ->
       @subviews.push new DPLA.Views.Stacklife.Relateds
         el: '.book-relateds'
         bookModel: @model
+      @$el.addClass 'book-loaded'
 
   Backbone.on 'stacklife:previewload', (id) ->
     book = new DPLA.Models.StacklifeBook { id: id }
@@ -25,5 +26,7 @@ Backbone.on 'stacklife:init', ->
         #   message: 'Something went wrong trying to load that book.'
 
   Backbone.on 'stacklife:previewunload', ->
-    currentPreview.clear() if currentPreview
+    if currentPreview
+      currentPreview.$el.removeClass 'book-loaded'
+      currentPreview.clear()
     currentPreview = null
