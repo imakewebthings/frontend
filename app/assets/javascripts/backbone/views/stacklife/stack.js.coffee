@@ -24,14 +24,14 @@ Backbone.on 'stacklife:init', ->
     selectFirstBook: ->
       $first = @$('.stack-item').first()
       return unless $first.length
-      id = $first.data('stackviewItem').source_id
+      id = $first.data('stackviewItem').id
       Backbone.trigger 'stacklife:previewload', id
 
     highlightPivot: ->
       @unhighlightPivot()
-      pivot = @$('.stack-item').filter ->
-        jQuery(@).data('stackviewItem').source_id is pivotID
-      pivot.addClass 'stack-pivot'
+      $pivot = @$('.stack-item').filter ->
+        jQuery(@).data('stackviewItem').id is pivotID
+      $pivot.addClass 'stack-pivot'
 
     unhighlightPivot: ->
       @$('.stack-pivot').removeClass 'stack-pivot'

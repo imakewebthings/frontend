@@ -5,10 +5,9 @@ Backbone.on 'stacklife:init', ->
 
     initialize: (options) ->
       super options
-      @model = new Backbone.Model
-      @model.on 'change', _.bind(@redraw, this)
-      @loadModel()
-      $(window).on 'resize.relateds', _.debounce(_.bind(@handleResize, @), 200)
+      @collection = new Backbone.Collection
+      @collection.on 'reset', _.bind(@redraw, this)
+      @loadCollection()
 
     undelegateEvents: ->
       $(window).off 'resize.relateds'
@@ -17,25 +16,29 @@ Backbone.on 'stacklife:init', ->
     render: ->
       super
       @$('.dpla-relateds').imagesLoaded _.bind(@masonize, @)
+      $(window).on 'resize.relateds', _.debounce(_.bind(@handleResize, @), 200)
       @resizeToWindow()
 
     masonize: ->
       @$('.dpla-relateds').masonry { itemSelector: '.dpla-related-item' }
 
-    loadModel: ->
+    loadCollection: ->
       params = @params()
       if params
-        @model.url = "http://dpla-life-service-dev.herokuapp.com/dpla-items?#{$.param(params)}"
-        @model.fetch()
+        @collection.url = "/stacklife?#{$.param(params)}"
+        @collection.fetch()
       else
-        @model.set 'docs', []
+        @collection.update []
 
     params: ->
       subjects = @options.bookModel.get('sourceResource').subject
       return unless subjects?
       subjectFilter = (subject) ->
         jQuery.trim(subject.name.replace(/\W/g, ' ').replace(/(\s)+/g, ' '))
-      { q: _.map(subjects, subjectFilter).join(' OR ') }
+      {
+        q: _.map(subjects, subjectFilter).join(' OR '),
+        'type[]': 'image'
+      }
 
     handleResize: ->
       @refreshMasonryLayout()

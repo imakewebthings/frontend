@@ -36,12 +36,12 @@
 	$.extend(true, window.StackView.defaults, {
 		book: {
 			max_height_percentage: 100,
-			max_height: 39,
-			max_pages: 540,
+			max_height: 32,
+			max_pages: 270,
 			min_height_percentage: 59,
 			min_height: 20,
-			min_pages: 200,
-			page_multiple: 0.20
+			min_pages: 100,
+			page_multiple: 0.40
 		},
 
 		selectors: {
@@ -78,13 +78,14 @@
 	   the percentage range specified in the stack options.
 	*/
 	var get_height = function(options, book) {
-		var height = parseInt(book.measurement_height_numeric, 10),
-		    min = options.book.min_height,
-		    max = options.book.max_height;
+		var min = options.book.min_height,
+		    max = options.book.max_height,
+		    height = book.sourceResource.extent;
 
-		if (isNaN(height)) {
-			height = min;
+		if (height) {
+			height = height[0].match(/([0-9])+(?=( )*cm)/);
 		}
+		height = height ? height[0] : min;
 		height = Math.min(Math.max(height, min), max);
 		height = translate(
 			height,
@@ -104,15 +105,16 @@
 	   the minimum pages, maximum pages, and pages multiple.
 	*/
 	var get_thickness = function(options, book) {
-		var thickness = parseInt(book.measurement_page_numeric, 10),
-		    min = options.book.min_pages,
+		var min = options.book.min_pages,
 		    max = options.book.max_pages,
-		    multiple = options.book.page_multiple;
+		    multiple = options.book.page_multiple,
+		    thickness = book.sourceResource.extent;
 
-		if (isNaN(thickness)) {
-			thickness = min;
+		if (thickness) {
+			thickness = thickness[0].match(/([0-9])+(?=( )*p)/)
 		}
-		thickness = Math.min(Math.max(thickness, min), max) * multiple;
+		thickness = thickness ? thickness[0] : min;
+		thickness = Math.floor(Math.min(Math.max(thickness, min), max) * multiple);
 		return thickness + 'px';
 	};
 
