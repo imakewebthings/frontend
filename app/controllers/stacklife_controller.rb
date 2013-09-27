@@ -2,8 +2,14 @@ class StacklifeController < ApplicationController
   helper_method :permitted_params
 
   def show
-    @search = Search.new *permitted_params.search
-    @items = @search.result permitted_params.args
+    respond_to do |format|
+      @search = Search.new *permitted_params.search
+      format.json do
+        @items = @search.result permitted_params.args
+        render json: @items
+      end
+      format.html { render :show }
+    end
   end
 
   private

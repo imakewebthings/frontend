@@ -1,6 +1,7 @@
 parseQueryString = (queryString) ->
   params = {}
   if queryString
+    queryString = queryString.substr 1
     mapped = _.map decodeURIComponent(queryString).split(/&/g), (el, i) ->
       aux = el.split '='
       obj = {}
@@ -15,12 +16,12 @@ parseQueryString = (queryString) ->
 
 createStackView = _.once ->
   params = parseQueryString window.location.search
+  params['q'] = '' unless params['q']
+  params['type[]'] = 'text'
   new DPLA.Views.Stacklife.Stack
-    url: 'http://dpla-life-service-dev.herokuapp.com/search'
-    jsonp: true
-    query: (params['q'] ? 'science')
+    url: '/stacklife'
+    params: params
     ribbon: ''
-    search_type: 'keyword'
 
 class DPLA.Routers.StacklifeRouter extends Backbone.Router
   routes:

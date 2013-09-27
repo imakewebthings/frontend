@@ -31,10 +31,10 @@ Backbone.on 'stacklife:init', ->
         @model.set 'docs', []
 
     params: ->
-      subjects = @options.bookModel.get 'subjects'
-      return unless subjects?.length
+      subjects = @options.bookModel.get('sourceResource').subject
+      return unless subjects?
       subjectFilter = (subject) ->
-        jQuery.trim(subject.replace(/\W/g, ' ').replace(/(\s)+/g, ' '))
+        jQuery.trim(subject.name.replace(/\W/g, ' ').replace(/(\s)+/g, ' '))
       { q: _.map(subjects, subjectFilter).join(' OR ') }
 
     handleResize: ->

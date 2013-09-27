@@ -1,30 +1,46 @@
+<%
+var sourceResource = model.get('sourceResource');
+var presenter = {
+  id: model.get('id'),
+  subjects: sourceResource.subject,
+  shown_at: model.get('isShownAt')
+};
+presenter.thumb = model.get('object') ?
+                  model.get('object') :
+                  window.default_preview_thumb;
+_.each(['creator', 'title', 'description'], function(key) {
+  presenter[key] = _.isArray(sourceResource[key]) ?
+                   sourceResource[key].join(', ') :
+                   sourceResource[key];
+});
+%>
+
 <div class="book-preview">
   <a href="#" class="toggle mobile">
     <span class="icon-arrow-thin-left" aria-hidden="true"></span>Back</a>
-  <img src="http://dp.la/assets/icon-text-b2bb9d2fd006d8e87b24613a4d4f362e.gif" class="cover_small" alt="">
-  <h2><a href="#TODO-ITEMPAGE"><%= model.get('title') %></a></h2>
-  <% if (model.get('creator')) { %>
-    <h3><%= model.get('creator') %></h3>
+  <img src="<%= presenter.thumb %>" class="cover_small" alt="">
+  <h2><a href="/item/<%= presenter.id %>"><%= presenter.title %></a></h2>
+  <% if (presenter.creator) { %>
+    <h3><%= presenter.creator %></h3>
   <% } %>
 
-  <p class="book-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  <p class="book-description"><%= presenter.description %></p>
 
-  <% var subjects = model.get('subjects') %>
-  <% if (subjects && subjects.length) { %>
+  <% if (presenter.subjects && presenter.subjects.length) { %>
     <div class="book-subjects">
       <strong>Subjects:</strong>
       <ul class="individual-subjects">
-        <% _.each(subjects, function(subject, index) { %>
-          <li><a href="#" class="single-subject-link" data-subject="<%= subject %>"><%= subject %></a></li>
+        <% _.each(presenter.subjects, function(subject, index) { %>
+          <li><a href="#TODO" class="single-subject-link" data-subject="<%= subject.name %>"><%= subject.name %></a></li>
         <% }); %>
       </ul>
     </div>
   <% } %>
 
   <ul class="book-preview-actions">
-    <li><a href="#TODO-VIEWOBJECT">View Object</a></li>
-    <% if (model.get('viewer_url')) { %>
-      <li><a href="<%= model.get('viewer_url') %>">Read</a></li>
+    <li><a href="<%= presenter.shown_at %>" target="_blank">View Object</a></li>
+    <% if (presenter.viewer_url) { %>
+      <li><a href="<%= presenter.viewer_url %>">Read</a></li>
     <% } %>
   </ul>
 

@@ -1,7 +1,7 @@
 /*!
 	Stack View - The jQuery virtual stack plugin
 	by The Harvard Library Innovation Lab
-	
+
 	Dual licensed under MIT and GPL.
 */
 (function($, window, document, undefined) {
@@ -9,14 +9,14 @@
 	    plugin = 'stackView',
 	    StackView,
 	    types = {};
-	
+
 	events = {
 		init: 'stackview.init',
 		item_added: 'stackview.itemadded',
 		item_removed: 'stackview.itemremoved',
 		page_load: 'stackview.pageload'
 	};
-	
+
 	/*
 	   #get_type
 	*/
@@ -32,10 +32,10 @@
 
 		return type;
 	};
-	
+
 	/*
 	   #render_items(StackView, array [, jQuery]) - Private
-	
+
 	   Takes a StackView instance, an array of result items, and an optional
 	   jQuery object.  Renders a DOM element for each of the items and
 	   appends it to the stack's item list. If [placeholder] is passed in the
@@ -46,7 +46,7 @@
 		    $pivot = $placeholder ?
 		             $placeholder :
 		             stack.$element.find(stack.options.selectors.item_list);
-		
+
 		$.each(docs, function(i, item) {
 			var type = get_type(item),
 			    $item;
@@ -65,43 +65,23 @@
 		}
 	};
 
-	/*
-		 #check_empty(StackView, number) - Private
 
-		 If count is 0, check_empty renders the empty message to the stack
-		 passed in.
-	*/
-	var check_empty = function(stack, count) {
-		if (count) return;
-
-		stack.$element.find(stack.options.selectors.item_list).append(
-			tmpl(StackView.templates.empty, {
-				message: stack.options.emptyMessage
-			})
-		);
-	};
-	
 	/*
 	   #calculate_params(StackView) - Private
-	
+
 	   Takes a StackView instance and returns the parameters for the next page.
 	   If the Stack uses loc_sort_order, this adjusts the query for that case.
 	   Returns a plain object with key:value params to be used by $.param.
 	*/
 	var calculate_params = function(stack) {
 		var opts = stack.options,
-		    params;
-		
-		params = {
-			start: stack.page * stack.options.items_per_page,
-			limit: stack.options.items_per_page,
-			search_type: stack.options.search_type,
-			query: stack.options.query
-		};
-		
+		    params = opts.params;
+
+		params['page'] = stack.page;
+
 		if (params.search_type === 'loc_sort_order') {
 			params.start = 0;
-			
+
 			if (stack.page === 0) {
 				stack.loc = {
 					low: opts.id - Math.floor(opts.items_per_page / 2),
@@ -136,13 +116,13 @@
 				stack.loc.low = stack.loc.low - opts.items_per_page - 1;
 			}
 		}
-		
+
 		return params;
 	};
 
 	/*
 	   #fetch_page(StackView, function) - Private
-	
+
 	   Takes a StackView instance and a callback function.  Retrieves the
 	   next page according to the URL and other options of the StackView
 	   instance.  When the page is finished fetching, the callback is
@@ -155,7 +135,7 @@
 
 		stack.page++;
 		cachedResult = window.stackCache.get(stack.options.url + querystring);
-		
+
 		if (cachedResult) {
 			callback(cachedResult);
 		}
@@ -169,7 +149,7 @@
 						stack.options.url + params,
 						data,
 						stack.options.cache_ttl
-					);	
+					);
 					callback(data);
 				}
 			});
@@ -178,13 +158,13 @@
 
 
 
-	
+
 	/* StackView constructor, set up instance properties and call init. */
 	StackView = function(elem, opts) {
 		this.element = elem;
 		this.$element = $(elem);
 		this.options = $.extend({}, StackView.defaults, opts);
-		this.page = 0;
+		this.page = 1;
 		this.finished = {
 			up: false,
 			down: false
@@ -196,13 +176,13 @@
 		this.direction = 'down';
 		this.init();
 	};
-	
+
 	/* Static properties and functions */
 	$.extend(true, StackView, {
 
 			/*
 		   The default options for a StackView instance.
-		
+
 		   cache_ttl
 		      How long a request will stay in cache.
 
@@ -271,7 +251,7 @@
 
 		/*
 	     StackView.get_heat(number)
-	
+
 	      Takes a value between 0 and 100 and returns a number to be used with
 	      heat classes to indicate popularity.
 		*/
@@ -324,15 +304,15 @@
 			return types;
 		}
 	});
-	
+
 	/*
 	   StackView public methods
 	*/
 	$.extend(true, StackView.prototype, {
-		
+
 		/*
 		   #init()
-		
+
 		   Sets up the initial states of a stack.  Including:
 		     - Creating the HTML skeleton.
 		     - Binding zIndex ordering to the pageload event.
@@ -341,7 +321,7 @@
 		*/
 		init: function() {
 			var that = this;
-			
+
 			this.$element
 				.html(tmpl(StackView.templates.scaffold, {
 					ribbon: this.options.ribbon
@@ -350,15 +330,15 @@
 				.bind(events.page_load, function() {
 					that.zIndex();
 				});
-			
+
 			this.$element.data('stackviewObject', this);
 			this.$element.trigger(events.init);
 			this.next_page();
 		},
-		
+
 		/*
 		   #next_page()
-		
+
 		   Loads the next page of stack items.  If we've already hit the
 		   last page, this function does nothing.
 		*/
@@ -366,20 +346,18 @@
 			var $placeholder = $(tmpl(StackView.templates.placeholder, {})),
 			    that = this,
 			    opts = this.options;
-			
+
 			if (this.finished.down) {
 				return;
 			}
-			
+
 			this.direction = 'down';
 			if (opts.data) {
 				if (opts.data.docs) {
 					render_items(this, opts.data.docs);
-					check_empty(this, opts.data.num_found);
 				}
 				else {
 					render_items(this, opts.data);
-					check_empty(this, opts.data.length);
 				}
 				this.finished.down = true;
 				this.$element.trigger(events.page_load, [opts.data]);
@@ -389,19 +367,18 @@
 					.find(opts.selectors.item_list)
 					.append($placeholder);
 				fetch_page(this, function(data) {
-					check_empty(that, data.num_found);
-					render_items(that, data.docs, $placeholder);
-					if (parseInt(data.start, 10) === -1) {
+					render_items(that, data, $placeholder);
+					if (!data.length) {
 						that.finished.down = true;
 					}
 					that.$element.trigger(events.page_load, [data]);
 				});
 			}
 		},
-		
+
 		/*
 		   #prev_page()
-		
+
 		   Loads the previous page of stack items.  If we've already hit the
 		   first page this function does nothing.  This function only works
 		   for stacks using the loc_sort_order search type.
@@ -411,17 +388,17 @@
 			    opts = this.options,
 			    that = this,
 			    $oldMarker = that.$element.find(opts.selectors.item).first();
-			
+
 			if (opts.search_type !== 'loc_sort_order' || this.finished.up) {
 				return;
 			}
-			
+
 			this.direction = 'up';
 			this.$element.find(opts.selectors.item_list).prepend($placeholder);
 			fetch_page(this, function(data) {
 				var oldTop = $oldMarker.position().top;
-				
-				render_items(that, data.docs, $placeholder);
+
+				render_items(that, data, $placeholder);
 				if (that.page > 1) {
 					that.$element.find(opts.selectors.item_list).animate({
 						'scrollTop': '+=' + ($oldMarker.position().top - oldTop)
@@ -433,17 +410,17 @@
 				that.$element.trigger(events.page_load, [data]);
 			});
 		},
-		
+
 		/*
 		   #add([number,] object)
-		
+
 		   Adds the specified item object to the stack, at the given index if
 		   provided or at the end (bottom) of the stack if index is not given.
 		*/
 		add: function() {
 			var $items = this.$element.find(this.options.selectors.item),
 			    index, item, type, action, $pivot, $item;
-			
+
 			if (typeof(arguments[0]) === 'number') {
 				index = arguments[0];
 				item = arguments[1];
@@ -464,7 +441,7 @@
 				$pivot = $items.eq(index);
 				action = 'before';
 			}
-			
+
 			type = get_type(item);
 			if (type == null) {
 				return;
@@ -476,10 +453,10 @@
 			this.zIndex();
 			this.$element.trigger(events.item_added);
 		},
-		
+
 		/*
 		   #remove(number | object)
-		
+
 		   If a number is given, it removes the item at that index. If an
 		   object is given, this method finds the element that represents that
 		   item and removes it.
@@ -487,7 +464,7 @@
 		remove: function(arg) {
 			var $items = this.$element.find(this.options.selectors.item),
 			    $found, data, index;
-			
+
 			if (typeof(arg) === 'number') {
 				$found = $items.eq(arg);
 			}
@@ -497,43 +474,43 @@
 			else {
 				$items.each(function(i, el) {
 					var $el = $(el);
-					
+
 					if ($el.data('stackviewItem') === arg) {
 						$found = $el;
 						return false;
 					}
 				});
 			}
-			
+
 			if ($found == null || !$found.length) {
 				return;
 			}
-			
+
 			$found.detach();
 			data = $found.data('stackviewItem');
 			this.$element.trigger(events.item_removed, [data]);
 			return $found;
 		},
-		
-		
+
+
 		/*
 		   #getData()
-		
+
 		   Returns an array of all the item objects currently in the stack.
 		*/
 		getData: function() {
 			var data = [];
-			
+
 			this.$element.find(this.options.selectors.item).each(function() {
 				data.push($(this).data('stackviewItem'));
 			});
-			
+
 			return data;
 		},
-		
+
 		/*
 		   #zIndex(boolean)
-		
+
 		   Reverses the natural flow order of the stack items by giving those
 		   earlier in the source (higher on the stack) a higher z-index.  If
 		   passed true, it will instead assign z-indexes in normal flow order.
@@ -543,7 +520,7 @@
 			    length = $items.length,
 			    i = 0,
 			    z = reverse ? 0 : $items.length - 1;
-			
+
 			while (i < length) {
 				$items.eq(i).css('z-index', z);
 				z = z + (reverse ? 1 : -1);
@@ -551,7 +528,7 @@
 			}
 		}
 	});
-	
+
 	/*
 	   If .stackView has not been called on an element, the first call will
 	   initialize the plugin. Subsequent calls expect a method from the
@@ -563,26 +540,26 @@
 	$.fn[plugin] = function(method) {
 		var response,
 		    args = Array.prototype.slice.call(arguments, 1);
-		
+
 		this.each(function(i, el) {
 			var $el = $(el),
 			    obj = $el.data('stackviewObject');
-			
+
 			if (!obj) {
 				new StackView(el, method);
 			}
 			else if (obj[method]) {
 				var methodResponse = obj[method].apply(obj, args);
-				
+
 				if (response === undefined && methodResponse !== undefined) {
 					response = methodResponse;
 				}
 			}
 		});
-		
+
 		return response === undefined ? this : response;
 	};
-	
+
 	/* Expose the StackView class for extension */
 	window.StackView = StackView;
 })(jQuery, window, document);

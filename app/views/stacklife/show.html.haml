@@ -14,3 +14,7 @@
             = image_tag 'stacklife-loading.gif', class: 'stacklife-loading'
           .preview-wrapper
     = render partial: 'shared/sidebar'
+
+  :javascript
+    window.is_refines_present = #{ refines_present? };
+    window.default_preview_thumb = "#{asset_path('icon-text.gif')}";

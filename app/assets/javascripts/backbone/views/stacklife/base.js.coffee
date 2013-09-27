@@ -6,7 +6,6 @@ class DPLA.Views.Stacklife.Base extends Backbone.View
     @subviews = []
     @template = @template ? options.template
     @render()
-    console.log
 
   render: ->
     data =

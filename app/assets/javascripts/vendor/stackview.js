@@ -5,4 +5,4 @@
 //= require ./stackview/jquery.stackview.infinite.js
 //= require ./stackview/jquery.stackview.navigation.js
 //= require ./stackview/jquery.stackview.stackcache.js
-//= require_tree ./stackview/types
+//= require ./stackview/types/book.js

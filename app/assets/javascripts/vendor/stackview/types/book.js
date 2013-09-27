@@ -117,19 +117,6 @@
 	};
 
 	/*
-	   #normalize_link(object) - Private
-
-	   Takes an item and returns the item's link, taking into account
-	   workarounds that may come from inconsistent data structure.
-	*/
-	var normalize_link = function(item) {
-		//workaround for link construction from LibraryCloud
-		return item.title_link_friendly ?
-			'../shelflife/book/' + item.title_link_friendly + '/' + item.id :
-			item.link;
-	};
-
-	/*
 	   #get_author(object) - Private
 
 	   Takes an item and returns the item's author, taking the first
@@ -145,6 +132,36 @@
 		return author;
 	};
 
+	/*
+	   #parse_year(object) - Private
+
+	   Takes an item and returns the item's display year.
+	*/
+	var parse_year = function(item) {
+		var year = item.sourceResource.date
+
+		if (year) {
+			year = year.displayDate;
+			_.each(['/', ' '], function(splitChar) {
+				year = year.split(splitChar);
+				year = year[year.length - 1];
+			});
+			year = parseInt(year, 10);
+		}
+
+		return year;
+	};
+
+
+	/*
+	   #get_heat(object) - Private
+
+	   Takes an item and returns a heat number based on Lucene relevance.
+	*/
+	var get_heat = function(score) {
+		return Math.round(Math.max(1, Math.min(score, 10)));
+	};
+
 
 	/*
 	   Book type definition.
@@ -158,14 +175,13 @@
 
 		adapter: function(item, options) {
 			return {
-				heat: window.StackView.utils.get_heat(item.shelfrank),
+				heat: get_heat(item.score),
 				book_height: get_height(options, item),
 				book_thickness: get_thickness(options, item),
-				link: normalize_link(item),
-				title: item.title,
-				author: get_author(item),
-				year: item.pub_date,
-				id: item.source_id
+				title: item.sourceResource.title,
+				author: item.sourceResource.creator,
+				year: parse_year(item),
+				id: item.id
 			};
 		},
 
