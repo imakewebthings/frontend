@@ -33,10 +33,18 @@ Backbone.on 'stacklife:init', ->
     params: ->
       subjects = @options.bookModel.get('sourceResource').subject
       return unless subjects?
-      subjectFilter = (subject) ->
-        jQuery.trim(subject.name.replace(/\W/g, ' ').replace(/(\s)+/g, ' '))
+      replaceNonWords = (str) ->
+        str.replace /\W/g, ' '
+      collapseWhitespace = (str) ->
+        str.replace /(\s)+/g, ' '
+      firstLast = (str) ->
+        words = str.split ' '
+        [words[0], words[words.length - 1]]
+      subjectMap = (subject) ->
+        firstLast jQuery.trim collapseWhitespace replaceNonWords subject.name
+      searchTerms = _.uniq _.compact _.flatten _.map(subjects, subjectMap)
       {
-        q: _.map(subjects, subjectFilter).join(' OR '),
+        q: searchTerms.join(' OR '),
         'type[]': 'image'
       }
 
