@@ -141,35 +141,11 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   height:100%;
   overflow-y:scroll;
   width:97%;
-  padding-top:6px;
+  padding-top:24px;
   padding-right:40px;
   position:relative;
   z-index:2;
   -webkit-overflow-scrolling:touch;
-
-  &:before {
-    content:"";
-    display:block;
-    width:66%;
-    height:0;
-    padding-bottom:25%;
-    margin-top:20px;
-    border-left:8px solid #ccc;
-    border-bottom:8px solid #ccc;
-    position:relative;
-    margin-bottom:1px;
-    z-index:9999; // Needs to be bigger than # of books.
-  }
-
-  &:after {
-    content:"";
-    display:block;
-    width:66%;
-    height:0;
-    padding-top:25%;
-    border-left:8px solid #ccc;
-    border-top:8px solid #ccc;
-  }
 }
 
 .stackview-placeholder {
