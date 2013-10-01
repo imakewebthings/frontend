@@ -3,12 +3,16 @@ class StacklifeController < ApplicationController
 
   def show
     respond_to do |format|
-      @search = Search.new *permitted_params.search
       format.json do
+        @search = Search.new *permitted_params.search
         @items = @search.result permitted_params.args
         render json: @items
       end
-      format.html { render :show }
+      format.html do
+        params[:spec_type] = 'Book'
+        @search = Search.new *permitted_params.search
+        render :show
+      end
     end
   end
 

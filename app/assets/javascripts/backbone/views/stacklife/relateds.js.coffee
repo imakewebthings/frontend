@@ -28,7 +28,7 @@ Backbone.on 'stacklife:init', ->
         @collection.url = "/stacklife?#{$.param(params)}"
         @collection.fetch()
       else
-        @collection.update []
+        @collection.reset []
 
     params: ->
       subjects = @options.bookModel.get('sourceResource').subject
