@@ -17,7 +17,7 @@ parseQueryString = (queryString) ->
 createStackView = _.once ->
   params = parseQueryString window.location.search
   params['q'] = '' unless params['q']
-  params['type[]'] = 'text'
+  params['sourceResource.specType'] = 'Book'
   new DPLA.Views.Stacklife.Stack
     url: '/stacklife'
     params: params

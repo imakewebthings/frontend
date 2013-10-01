@@ -83,7 +83,7 @@
 		    height = book.sourceResource.extent;
 
 		if (height) {
-			height = height[0].match(/([0-9])+(?=( )*cm)/);
+			height = height[0].replace(/\W/g, '').match(/([0-9])+(?=( )*cm)/);
 		}
 		height = height ? height[0] : min;
 		height = Math.min(Math.max(height, min), max);
@@ -111,7 +111,7 @@
 		    thickness = book.sourceResource.extent;
 
 		if (thickness) {
-			thickness = thickness[0].match(/([0-9])+(?=( )*p)/)
+			thickness = thickness[0].replace(/\W/g, '').match(/([0-9])+(?=( )*p)/)
 		}
 		thickness = thickness ? thickness[0] : min;
 		thickness = Math.floor(Math.min(Math.max(thickness, min), max) * multiple);

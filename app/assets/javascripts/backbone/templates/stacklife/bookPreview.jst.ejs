@@ -31,7 +31,7 @@ _.each(['creator', 'title', 'description'], function(key) {
       <strong>Subjects:</strong>
       <ul class="individual-subjects">
         <% _.each(presenter.subjects, function(subject, index) { %>
-          <li><a href="#TODO" class="single-subject-link" data-subject="<%= subject.name %>"><%= subject.name %></a></li>
+          <li><a href="/stacklife?utf8=✓&subject=<%= subject.name %>" class="single-subject-link" data-subject="<%= subject.name %>"><%= subject.name %></a></li>
         <% }); %>
       </ul>
     </div>
