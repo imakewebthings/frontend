@@ -146,6 +146,12 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   position:relative;
   z-index:2;
   -webkit-overflow-scrolling:touch;
+
+  &:after {
+    content:'';
+    display:block;
+    height:24px;
+  }
 }
 
 .stackview-placeholder {
