@@ -111,7 +111,7 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   font-family:"source_sans_proregular", sans-serif;
   position:relative;
   height:520px;
-  padding:0 0 0 62px;
+  padding:0 0 0 45px;
   overflow:hidden;
 
   * {
@@ -140,7 +140,7 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   list-style:none;
   height:100%;
   overflow-y:scroll;
-  width:97%;
+  width:100%;
   padding-top:24px;
   padding-right:40px;
   position:relative;
@@ -408,19 +408,19 @@ $baseborder: #4691b9;
   position:absolute;
   left:0px;
   top:25px;
-  width:41px;
+  width:32px;
   text-align:center;
   -webkit-user-select:none;
   -moz-user-select:none;
   user-select:none;
 
   .upstream, .downstream {
-    height:43px;
+    height:36px;
     font-size:0px;
     cursor:pointer;
 
     &:before {
-      font-size:24px;
+      font-size:22px;
       font-family:'icomoon';
       color:#dd4e00;
     }
@@ -578,7 +578,7 @@ $baseborder: #4691b9;
 
     > li {
       float:left;
-      margin-right:20px;
+      margin:0 20px 0 0;
     }
 
     a {

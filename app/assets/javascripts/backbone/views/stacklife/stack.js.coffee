@@ -1,5 +1,3 @@
-window.StackView.defaults.book.min_height_percentage = 66
-
 Backbone.on 'stacklife:init', ->
   pivotID = null
   currentStack = null

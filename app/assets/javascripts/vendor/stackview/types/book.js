@@ -36,10 +36,10 @@
 	$.extend(true, window.StackView.defaults, {
 		book: {
 			max_height_percentage: 100,
-			max_height: 32,
+			max_height: 30,
 			max_pages: 270,
-			min_height_percentage: 59,
-			min_height: 20,
+			min_height_percentage: 70,
+			min_height: 15,
 			min_pages: 100,
 			page_multiple: 0.40
 		},
@@ -85,7 +85,7 @@
 		if (height) {
 			height = height[0].replace(/\W/g, '').match(/([0-9])+(?=( )*cm)/);
 		}
-		height = height ? height[0] : min;
+		height = height ? height[0] : (max + min) / 2;
 		height = Math.min(Math.max(height, min), max);
 		height = translate(
 			height,
