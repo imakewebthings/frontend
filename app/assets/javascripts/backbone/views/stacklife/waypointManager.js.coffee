@@ -9,7 +9,6 @@ Backbone.on 'stacklife:init', ->
   $content.waypoint
     handler: (direction) ->
       $stickyWrapper.toggleClass 'stuck', direction is 'down'
-    offset: -> -parseInt $stacklifeContainer.css('borderTopWidth'), 10
 
   $footer.waypoint
     handler: (direction) ->

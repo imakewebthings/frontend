@@ -10,6 +10,11 @@
     .slidePopOut#content{role: "main"}
       .waypoint-wrapper
         %article.stacklife-container
+          #resultsBarTop.resultsBar
+            %form.sortControl
+              %label
+                Sort by:
+                = select_tag 'sort_by', sort_by_options, class: 'sortList'
           .stack-wrapper
             = image_tag 'stacklife-loading.gif', class: 'stacklife-loading'
           .preview-wrapper
