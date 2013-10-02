@@ -61,5 +61,7 @@ Backbone.on 'stacklife:init', ->
       moduleTop = $module.offset().top
       previewTop = @$el.closest('.preview-wrapper').offset().top
       winHeight = $(window).height()
-      $module.css 'height', (winHeight - (moduleTop - previewTop))
+      resultBarHeight = $('#resultsBarTop').outerHeight()
+      moduleHeight = winHeight - (moduleTop - previewTop) - resultBarHeight
+      $module.css 'height', moduleHeight
 

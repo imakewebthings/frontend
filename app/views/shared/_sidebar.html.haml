@@ -1,7 +1,7 @@
 - aside_collapsed = %w(timeline map).include? params[:controller]
 
 %aside{class: aside_collapsed ? 'moveOut' : nil}
-  - if params[:controller] == 'search'
+  - if %w(search stacklife).include? params[:controller]
     %h5 Refine
   - unless params[:controller] == 'stacklife'
     = render 'shared/sidebar/refine_by_type'

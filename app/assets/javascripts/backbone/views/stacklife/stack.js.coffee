@@ -35,7 +35,9 @@ Backbone.on 'stacklife:init', ->
       @$('.stack-pivot').removeClass 'stack-pivot'
 
     handleResize: ->
-      @$('.stackview').height $(window).height()
+      windowHeight = $(window).height()
+      resultBarHeight = $('#resultsBarTop').outerHeight()
+      @$('.stackview').height windowHeight - resultBarHeight
 
   Backbone.on 'stacklife:previewload', (id) ->
     pivotID = id
