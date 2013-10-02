@@ -9,8 +9,8 @@ class StacklifeController < ApplicationController
         render json: @items
       end
       format.html do
-        params[:spec_type] = 'Book'
-        @search = Search.new *permitted_params.search
+        @search = Search.new permitted_params.term, permitted_params.filters,
+                             { spec_type: 'Book', page_size: 0 }
         render :show
       end
     end
