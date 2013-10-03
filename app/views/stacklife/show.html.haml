@@ -15,6 +15,7 @@
               %label
                 Sort by:
                 = select_tag 'sort_by', sort_by_options, class: 'sortList'
+            %a.toggle-infopanel{href: "#"} ?
           .stack-wrapper
             = image_tag 'stacklife-loading.gif', class: 'stacklife-loading'
           .preview-wrapper

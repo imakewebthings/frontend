@@ -46,11 +46,20 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   @return mix(black, $color, $percent);
 }
 
-.search-page.stacklife aside {
-  margin-top:0;
+.search-page.stacklife  {
+  aside {
+    margin-top:0;
 
-  .subject.module {
-    margin-bottom:0;
+    .subject.module {
+      margin-bottom:0;
+    }
+  }
+
+  @media all and (max-width:680px) {
+    .resultsBar form {
+      float:left;
+      margin-bottom:0;
+    }
   }
 }
 
@@ -99,6 +108,7 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   width:100%;
   overflow:hidden;
   margin-top:41px;
+  position:relative;
 }
 
 .stack-wrapper {
@@ -541,6 +551,10 @@ $baseborder: #4691b9;
   padding-top:32px;
   line-height:1.25;
 
+  .infopanel-on & {
+    display:none;
+  }
+
   ul {
     padding:0;
   }
@@ -654,18 +668,6 @@ $baseborder: #4691b9;
   }
 }
 
-// .module.yellow {
-//   border-top:8px solid #e6a425;
-//   background:#ededed;
-//   padding:8px 10px;
-//   margin-bottom:16px;
-
-//   > h3 {
-//     font-family:'source_sans_pro_semiboldRg';
-//     margin:.5em 0;
-//   }
-// }
-
 .dpla-related-description {
   line-height:1.2;
   margin-bottom:16px;
@@ -718,3 +720,53 @@ $baseborder: #4691b9;
 .no-touch .dpla-related-item:hover .view-source-item {
   opacity:1;
 }
+
+.stacklife-infopanel {
+  position:absolute;
+  right:0;
+  top:69px;
+  @include border-box();
+  width:50%;
+  background:#fff;
+  display:none;
+  z-index:4;
+
+  .infopanel-on & {
+    display:block;
+
+    @media all and (max-width:680px) {
+      display:none;
+    }
+  }
+}
+
+
+.toggle-infopanel {
+  font-family:'source_sans_pro_semiboldRg', sans-serif;
+  float:right;
+  background:#999;
+  color:#fff;
+  height:22px;
+  width:22px;
+  line-height:24px;
+  vertical-align:middle;
+  text-align:center;
+  border-radius:22px;
+  position:relative;
+  top:3px;
+  right:5px;
+
+  &:hover, &:focus {
+    text-decoration:none;
+    color:#fff;
+  }
+
+  .infopanel-on & {
+    background:#dd4e00;
+  }
+
+  @media all and (max-width:680px) {
+    display:none;
+  }
+}
+
