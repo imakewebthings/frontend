@@ -1,15 +1,15 @@
 - page_title! t('.title_with_query', title: t('.title'), query: params[:q]) if params[:q].present?
 
-.layoutTwo.stacklife.search-page
+.layoutTwo.bookshelf.search-page
   = render 'shared/search_panel'
   = render 'shared/aside_toggle'
 
-  %h1 Stacklife
+  %h1 Bookshelf
   = render 'shared/results/search_results', query: params[:q], search: @search
   - if @search.count > 0
     .slidePopOut#content{role: "main"}
       .waypoint-wrapper
-        %article.stacklife-container
+        %article.bookshelf-container
           #resultsBarTop.resultsBar
             %form.sortControl
               %label
@@ -17,7 +17,7 @@
                 = select_tag 'sort_by', sort_by_options, class: 'sortList'
             %a.toggle-infopanel{href: "#"} ?
           .stack-wrapper
-            = image_tag 'stacklife-loading.gif', class: 'stacklife-loading'
+            = image_tag 'bookshelf-loading.gif', class: 'bookshelf-loading'
           .preview-wrapper
     = render partial: 'shared/sidebar'
 

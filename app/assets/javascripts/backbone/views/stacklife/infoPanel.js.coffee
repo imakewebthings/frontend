@@ -1,7 +1,7 @@
-Backbone.on 'stacklife:init', ->
-  class DPLA.Views.Stacklife.InfoPanel extends DPLA.Views.Stacklife.Base
-    el: '.stacklife-container'
-    template: JST['backbone/templates/stacklife/infoPanel']
+Backbone.on 'bookshelf:init', ->
+  class DPLA.Views.Bookshelf.InfoPanel extends DPLA.Views.Bookshelf.Base
+    el: '.bookshelf-container'
+    template: JST['backbone/templates/bookshelf/infoPanel']
 
     events:
       'click .toggle-infopanel': 'toggle'
@@ -19,9 +19,9 @@ Backbone.on 'stacklife:init', ->
       @$el.toggleClass 'infopanel-on'
       event.preventDefault()
 
-  infoPanel = new DPLA.Views.Stacklife.InfoPanel
+  infoPanel = new DPLA.Views.Bookshelf.InfoPanel
 
-  Backbone.on 'stacklife:previewload', ->
+  Backbone.on 'bookshelf:previewload', ->
     infoPanel.hide()
-  Backbone.on 'stacklife:previewunload', ->
+  Backbone.on 'bookshelf:previewunload', ->
     infoPanel.show()

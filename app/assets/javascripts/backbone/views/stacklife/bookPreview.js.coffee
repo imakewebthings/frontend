@@ -1,31 +1,31 @@
-Backbone.on 'stacklife:init', ->
+Backbone.on 'bookshelf:init', ->
   currentPreview = null
 
-  class DPLA.Views.Stacklife.BookPreview extends DPLA.Views.Stacklife.Base
+  class DPLA.Views.Bookshelf.BookPreview extends DPLA.Views.Bookshelf.Base
     el: '.preview-wrapper'
-    template: JST['backbone/templates/stacklife/bookPreview']
+    template: JST['backbone/templates/bookshelf/bookPreview']
 
     render: ->
       super
-      @subviews.push new DPLA.Views.Stacklife.Relateds
+      @subviews.push new DPLA.Views.Bookshelf.Relateds
         el: '.book-relateds'
         bookModel: @model
       @$el.addClass 'book-loaded'
 
-  Backbone.on 'stacklife:previewload', (id) ->
-    book = new DPLA.Models.StacklifeBook { id: id }
+  Backbone.on 'bookshelf:previewload', (id) ->
+    book = new DPLA.Models.BookshelfBook { id: id }
 
     book.fetch
       success: (model, response, options) ->
         currentPreview.clear() if currentPreview && currentPreview.model
-        currentPreview = new DPLA.Views.Stacklife.BookPreview { model: model }
+        currentPreview = new DPLA.Views.Bookshelf.BookPreview { model: model }
 
       error: (model, xhr, options) ->
         # appNotify.notify
         #   type: 'error'
         #   message: 'Something went wrong trying to load that book.'
 
-  Backbone.on 'stacklife:previewunload', ->
+  Backbone.on 'bookshelf:previewunload', ->
     if currentPreview
       currentPreview.$el.removeClass 'book-loaded'
       currentPreview.clear()

@@ -18,22 +18,22 @@ createStackView = _.once ->
   params = parseQueryString window.location.search
   params['q'] = '' unless params['q']
   params['spec_type'] = 'Book'
-  new DPLA.Views.Stacklife.Stack
-    url: '/stacklife'
+  new DPLA.Views.Bookshelf.Stack
+    url: '/bookshelf'
     params: params
     ribbon: ''
 
-class DPLA.Routers.StacklifeRouter extends Backbone.Router
+class DPLA.Routers.BookshelfRouter extends Backbone.Router
   routes:
     '':    'stackView'
     ':id': 'bookPreviewView'
 
   stackView: ->
     createStackView()
-    Backbone.trigger 'stacklife:previewunload'
+    Backbone.trigger 'bookshelf:previewunload'
 
   bookPreviewView: (id) ->
     createStackView()
-    Backbone.trigger 'stacklife:previewload', id
+    Backbone.trigger 'bookshelf:previewload', id
 
 

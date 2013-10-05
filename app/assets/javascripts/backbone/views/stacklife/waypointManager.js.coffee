@@ -1,8 +1,7 @@
 jQuery.waypoints.settings.scrollThrottle = 10
 
-Backbone.on 'stacklife:init', ->
+Backbone.on 'bookshelf:init', ->
   $content = $ '#content'
-  $stacklifeContainer = $ '.stacklife-container'
   $stickyWrapper = $ '.waypoint-wrapper'
   $footer = $ '.container > footer'
 

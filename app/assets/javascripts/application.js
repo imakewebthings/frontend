@@ -23,7 +23,7 @@
 //
 //= require search.js.coffee
 //= require timeline.js.coffee
-//= require stacklife.js.coffee
+//= require bookshelf.js.coffee
 //= require spikes.js.coffee
 //= require common.js.coffee
 //= require map.js.coffee

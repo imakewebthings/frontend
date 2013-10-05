@@ -46,7 +46,7 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   @return mix(black, $color, $percent);
 }
 
-.search-page.stacklife  {
+.search-page.bookshelf  {
   aside {
     margin-top:0;
 
@@ -65,7 +65,7 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
 
 .waypoint-wrapper {
   &.stuck {
-    .stacklife-container {
+    .bookshelf-container {
       margin-top:0;
     }
 
@@ -95,7 +95,7 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
       overflow:visible;
       padding-top:41px;
 
-      .stacklife-container {
+      .bookshelf-container {
         position:absolute;
         right:0;
         bottom:0;
@@ -104,7 +104,7 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   }
 }
 
-.stacklife-container {
+.bookshelf-container {
   width:100%;
   overflow:hidden;
   margin-top:41px;
@@ -171,14 +171,14 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
 
 .stackview-placeholder {
   width:100%;
-  background:url('/assets/stacklife-loading.gif') no-repeat left center #fff;
+  background:url('/assets/bookshelf-loading.gif') no-repeat left center #fff;
   height:42px;
   margin-bottom:40px;
   position:relative;
   z-index:9997;
 }
 
-.stacklife-loading {
+.bookshelf-loading {
   margin:24px 0 0 0;
 }
 
@@ -721,7 +721,7 @@ $baseborder: #4691b9;
   opacity:1;
 }
 
-.stacklife-infopanel {
+.bookshelf-infopanel {
   position:absolute;
   right:0;
   top:69px;

@@ -1,4 +1,4 @@
-class StacklifeController < ApplicationController
+class BookshelfController < ApplicationController
   helper_method :permitted_params
 
   def show

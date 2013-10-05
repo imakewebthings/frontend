@@ -1,10 +1,10 @@
-Backbone.on 'stacklife:init', ->
+Backbone.on 'bookshelf:init', ->
   pivotID = null
   currentStack = null
 
-  class DPLA.Views.Stacklife.Stack extends DPLA.Views.Stacklife.Base
+  class DPLA.Views.Bookshelf.Stack extends DPLA.Views.Bookshelf.Base
     el: '.stack-wrapper'
-    template: JST['backbone/templates/stacklife/stack']
+    template: JST['backbone/templates/bookshelf/stack']
 
     initialize: (options) ->
       super options
@@ -23,7 +23,7 @@ Backbone.on 'stacklife:init', ->
       $first = @$('.stack-item').first()
       return unless $first.length
       id = $first.data('stackviewItem').id
-      Backbone.trigger 'stacklife:previewload', id
+      Backbone.trigger 'bookshelf:previewload', id
 
     highlightPivot: ->
       @unhighlightPivot()
@@ -39,11 +39,10 @@ Backbone.on 'stacklife:init', ->
       resultBarHeight = $('#resultsBarTop').outerHeight()
       @$('.stackview').height windowHeight - resultBarHeight
 
-  Backbone.on 'stacklife:previewload', (id) ->
+  Backbone.on 'bookshelf:previewload', (id) ->
     pivotID = id
     currentStack.highlightPivot() if currentStack
 
-  Backbone.on 'stacklife:previewunload', ->
+  Backbone.on 'bookshelf:previewunload', ->
     pivotID = null
     currentStack.unhighlightPivot() if currentStack
-

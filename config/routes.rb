@@ -18,7 +18,7 @@ DplaPortal::Application.routes.draw do
     resource :search,    controller: :search
     resource :timeline,  controller: :timeline
     resource :map,       controller: :map
-    resource :stacklife, controller: :stacklife
+    resource :bookshelf, controller: :bookshelf
   end
 
   scope '/saved' do

@@ -1,6 +1,6 @@
-DPLA.Views.Stacklife = {}
+DPLA.Views.Bookshelf = {}
 
-class DPLA.Views.Stacklife.Base extends Backbone.View
+class DPLA.Views.Bookshelf.Base extends Backbone.View
   initialize: (options) ->
     super options
     @subviews = []

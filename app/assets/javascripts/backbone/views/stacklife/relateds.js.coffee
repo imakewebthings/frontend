@@ -1,7 +1,7 @@
-Backbone.on 'stacklife:init', ->
-  class DPLA.Views.Stacklife.Relateds extends DPLA.Views.Stacklife.Base
+Backbone.on 'bookshelf:init', ->
+  class DPLA.Views.Bookshelf.Relateds extends DPLA.Views.Bookshelf.Base
     el: '.book-relateds'
-    template: JST['backbone/templates/stacklife/relateds']
+    template: JST['backbone/templates/bookshelf/relateds']
 
     initialize: (options) ->
       super options
@@ -25,7 +25,7 @@ Backbone.on 'stacklife:init', ->
     loadCollection: ->
       params = @params()
       if params
-        @collection.url = "/stacklife?#{$.param(params)}"
+        @collection.url = "/bookshelf?#{$.param(params)}"
         @collection.fetch()
       else
         @collection.reset []
