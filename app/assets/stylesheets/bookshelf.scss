@@ -156,11 +156,16 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   height:100%;
   overflow-y:scroll;
   width:100%;
-  padding-top:24px;
   padding-right:40px;
   position:relative;
   z-index:2;
   -webkit-overflow-scrolling:touch;
+
+  &:before {
+    content:'';
+    display:block;
+    height:24px;
+  }
 
   &:after {
     content:'';
@@ -171,7 +176,8 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
 
 .stackview-placeholder {
   width:100%;
-  background:url('/assets/bookshelf-loading.gif') no-repeat left center #fff;
+  float:right;
+  background:url('/assets/bookshelf-loading.gif') no-repeat right center #fff;
   height:42px;
   margin-bottom:40px;
   position:relative;
@@ -240,7 +246,7 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   position:absolute;
   z-index:3;
   top:50%;
-  right:6px;
+  right:1px;
   width:34px;
   height:18px;
   line-height:18px;
@@ -474,6 +480,8 @@ $baseborder: #4691b9;
 
 .stack-book {
   margin:0 0 3px 0;
+  float:right;
+  clear:right;
 
   > a {
     border-width:1px 2px;
@@ -483,8 +491,8 @@ $baseborder: #4691b9;
   .spine-text {
     top:50%;
     margin-top:-14px;
-    left:15px;
-    right:34px;
+    left:20px;
+    right:29px;
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
@@ -501,7 +509,7 @@ $baseborder: #4691b9;
   z-index:4;
   display:block;
   width:10px;
-  right:0;
+  left:0;
   top:0;
   bottom:-2px;
 }
