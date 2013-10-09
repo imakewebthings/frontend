@@ -60,6 +60,11 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
       float:left;
       margin-bottom:0;
     }
+
+    .bookshelf-container {
+      width:200%;
+      float:none;
+    }
   }
 }
 
@@ -117,8 +122,8 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/functio
   padding-right:20px;
   float:left;
 
-  @media all and (max-width:640px) {
-    width:100%;
+  @media all and (max-width:680px) {
+    padding-right:0;
   }
 }
 
@@ -531,26 +536,24 @@ $baseborder: #4691b9;
   width:50%;
 
   @media all and (max-width:640px) {
-    position:absolute;
-    left:0;
-    width:100%;
-    height:100%;
+    position:relative;
+    min-height:100%;
     padding-left:20px;
     padding-right:20px;
     @include border-box();
     z-index:3;
     background:#fff;
-    -webkit-transform:translate(100%,0);
-    -moz-transform:translate(100%,0);
-    transform:translate(100%,0);
+    -webkit-transform:translate(0,0);
+    -moz-transform:translate(0,0);
+    transform:translate(0,0);
     -webkit-transition:-webkit-transform 300ms 0;
     -moz-transition:-moz-transform 300ms 0;
     transition:transform 300ms 0;
 
     &.book-loaded {
-      -webkit-transform:translate(0,0);
-      -moz-transform:translate(0,0);
-      transform:translate(0,0);
+      -webkit-transform:translate(-100%,0);
+      -moz-transform:translate(-100%,0);
+      transform:translate(-100%,0);
     }
   }
 }
@@ -637,6 +640,10 @@ $baseborder: #4691b9;
     width:100%;
     padding:4%;
     overflow:auto;
+
+    @media all and (max-width:680px) {
+      min-height:150px;
+    }
 
     > h6, > p {
       text-indent:5px;
